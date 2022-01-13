@@ -152,24 +152,32 @@ const icons =
 
 const box = document.querySelector('.container')
 
-    icons.forEach(function(element) {
+function create(icon){
+return ` <div class="icons-container">
+<i class="${icon.family} ${icon.prefix}${icon.name} ${icon.color}"></i>
+<div class"text"><p>${icon.name}</p></div>
+</div> `
+}
+    icons.forEach(function(icon) {
         box.innerHTML += 
-        `<div class="icons-container">
-            <i class="${element.family} ${element.prefix}${element.name} ${element.color}"></i>
-            <h4>${element.name}</h4>
-         </div>`;
+        create(icon);
     })
 
 
-    let user = document.getElementById('select');
+    function showIcons(container, iconList){
+       container.innerHTML = ''
+       iconList.forEach((icon) => {
+           container.innerHTML += create(icon);
+       })
+    }
 
-    user.addEventListener('change', function(){
-      
-        for (x = 0; x < icons.length; x++){
-             if (user = icons[x].type){
-               //??????????
-            }
-        }
+    showIcons(box, icons)
+    let select = document.getElementById('select');
+
+    select.addEventListener('change', function(){
+
+        const filtered = icons.filter((icon) => {
+            return this.value === '' || icon.type === this.value
+        })
+        showIcons(box, filtered)
     })
-    
-    
